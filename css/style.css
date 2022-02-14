@@ -1,0 +1,60 @@
+body{
+color:#FFFFFF;
+font-family: 'Work Sans',sans-serif;
+width: 364px;
+height: 582px;  
+}
+.block{
+background: #17171C;
+padding: 20px 21px 25px 20px;
+}
+
+.block_row{
+display:flex;
+justify-content: space-between;
+font-size: 32px;
+line-height: 45px;
+text-align: center;
+margin-top: 16px;
+font-weight: 400;
+}
+
+.block_item{
+width: 45px;
+height: 48px;
+background: #2E2F38;
+border-radius: 24px;
+padding: 12px;
+}
+
+.block_screen{
+width: 324px;
+font-size: 96px;
+line-height: 96px;
+text-align: right;
+font-weight: 300; 
+}
+
+.block_reset{
+width: 129px;
+height: 48px;
+background: #4E505F;
+border-radius: 24px;
+padding: 12px;
+}
+
+.block_operation{
+width: 45px;
+height: 48px;
+background: #4B5EFC;
+border-radius: 24px; 
+padding: 12px;   
+}
+
+.block_zero{
+width: 214px;
+height: 48px;
+background: #2E2F38;
+border-radius: 24px;
+padding: 12px; 
+}
