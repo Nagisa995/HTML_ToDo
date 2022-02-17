@@ -10,7 +10,7 @@ function screenSize(container) {
 
 function addNumber() {
     if(calcScreen.textContent === 'Error') return;
-    if (calcScreen.textContent === '0' || calcScreen.textContent == previousNumber || calcScreen.textContent === 'Error')
+    if (calcScreen.textContent === '0' || calcScreen.textContent == previousNumber)
         calcScreen.textContent = this.textContent;
     else calcScreen.textContent += this.textContent;
     screenSize(calcScreen.textContent);
@@ -51,7 +51,7 @@ function clearScreen() {
     previousNumber = 0;
 }
 
-function Delete() {
+function DELETE() {
     if (calcScreen.textContent === 'Error') return;
     calcScreen.textContent = calcScreen.textContent.slice(0, -1);
     if (calcScreen.textContent === '') calcScreen.textContent = 0;
@@ -68,7 +68,7 @@ for (let elem of k) {
     elem.addEventListener('click', operation);
 }
 RESULT.removeEventListener('click', operation);
-del.addEventListener('click', Delete);
+del.addEventListener('click', DELETE);
 CLEAR.addEventListener('click', clearScreen);
 RESULT.addEventListener('click', result);
 document.querySelector('div.block_zero').addEventListener('click', addNumber);
