@@ -1,20 +1,28 @@
 let operator = '', previousNumber = 0;
 
-function addNumber() {
-    if (calcScreen.textContent === '0' || calcScreen.textContent == previousNumber||calcScreen.textContent==='Error')
-        calcScreen.textContent = this.textContent;
+function screenSize(container) {
+    if (container.length > 9) calcScreen.style.fontSize = '32px';
     else {
-        if (calcScreen.textContent.length < 6)
-            calcScreen.textContent += this.textContent;
+        if (container.length > 5) calcScreen.style.fontSize = '64px';
+        else calcScreen.style.fontSize = '96px';
     }
 }
 
+function addNumber() {
+    if(calcScreen.textContent === 'Error') return;
+    if (calcScreen.textContent === '0' || calcScreen.textContent == previousNumber || calcScreen.textContent === 'Error')
+        calcScreen.textContent = this.textContent;
+    else calcScreen.textContent += this.textContent;
+    screenSize(calcScreen.textContent);
+}
+
 function operation() {
-    if(operator===''||previousNumber == calcScreen.textContent)
-    previousNumber = calcScreen.textContent;
-    else
-    result();
-    operator=this.id;
+    if(calcScreen.textContent === 'Error') return;
+    if (operator === '')
+        previousNumber = calcScreen.textContent;
+    else 
+        result();
+    operator = this.id;
 }
 
 function result() {
@@ -25,41 +33,42 @@ function result() {
         mult: previousNumber * calcScreen.textContent,
         div: previousNumber / calcScreen.textContent,
     };
-    let solution = resultCalc[operator];
-    if (!isFinite(solution)) {
+    if (calcScreen.textContent == '0' || operator === '') {
         clearScreen();
-        calcScreen.textContent='Error';
+        calcScreen.textContent = 'Error';
         return;
     }
+    let solution = resultCalc[operator];
     previousNumber = solution;
     calcScreen.textContent = solution;
-    operator='';
-}
-
-function clearScreen(){
-    calcScreen.textContent='0';
+    screenSize(calcScreen.textContent);
     operator = '';
-    previousNumber = 0;  
 }
 
-function Delete(){
-    calcScreen.textContent=calcScreen.textContent.slice(0,-1);
-    if(calcScreen.textContent==='')calcScreen.textContent=0;   
+function clearScreen() {
+    calcScreen.textContent = '0';
+    operator = '';
+    previousNumber = 0;
 }
 
-function test(){
-    alert(this.id);
+function Delete() {
+    if (calcScreen.textContent === 'Error') return;
+    calcScreen.textContent = calcScreen.textContent.slice(0, -1);
+    if (calcScreen.textContent === '') calcScreen.textContent = 0;
+    screenSize(calcScreen.textContent);
 }
 
-sub.addEventListener('click',operation);
-sum.addEventListener('click',operation);
-mult.addEventListener('click',operation);
-div.addEventListener('click',operation);
-let k=document.querySelectorAll('div.block_item');
-for(let elem of k){
-elem.addEventListener('click',addNumber);    
+let k = document.querySelectorAll('div.block_item');
+for (let elem of k) {
+    elem.addEventListener('click', addNumber);
 }
-del.removeEventListener('click',addNumber);
-del.addEventListener('click',Delete);
-CLEAR.addEventListener('click',clearScreen);
-RESULT.addEventListener('click',result);
+del.removeEventListener('click', addNumber);
+k = document.querySelectorAll('div.block_operation');
+for (let elem of k) {
+    elem.addEventListener('click', operation);
+}
+RESULT.removeEventListener('click', operation);
+del.addEventListener('click', Delete);
+CLEAR.addEventListener('click', clearScreen);
+RESULT.addEventListener('click', result);
+document.querySelector('div.block_zero').addEventListener('click', addNumber);
