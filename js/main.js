@@ -32,7 +32,7 @@ function procedure(event) {
             return;
         }
     }
-    if (previousNumber !== '' && lastEvent.textContent !== backspace.textContent) calculation(event);
+    if (previousNumber !== '') calculation(event);
     previousNumber = calcScreen.textContent;
     operator = event.currentTarget.id;
     setMarker(event);
@@ -53,6 +53,7 @@ function calculation(event) {
         div: previousNumber / calcScreen.textContent,
     };
     calcScreen.textContent = resultCalc[operator];
+    previousNumber=0;
     screenSize(calcScreen.textContent);
     setMarker(event);
 };
