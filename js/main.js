@@ -8,9 +8,8 @@ function screenSize(container) {
 
 function setMarker(event) {
     let lastEvent = document.querySelector('div.Event');
-    if (lastEvent !== null) lastEvent.classList.remove('Event');
+    lastEvent.classList.remove('Event');
     event.currentTarget.classList.add('Event');
-    console.log(lastEvent);
 }
 
 function addNumber(event) {
@@ -24,16 +23,16 @@ function addNumber(event) {
     setMarker(event);
 }
 
-function procedure(event) {  
+function procedure(event) {
     let lastEvent = document.querySelector('div.Event');
     if (lastEvent.classList.contains('block_operation')) {
-        if (lastEvent.textContent!=='=') {
+        if (lastEvent.textContent !== '=') {
             operator = event.currentTarget.id;
             setMarker(event);
             return;
         }
     }
-    if (previousNumber !== ''&&lastEvent.textContent!==backspace.textContent) calculation(event);
+    if (previousNumber !== '' && lastEvent.textContent !== backspace.textContent) calculation(event);
     previousNumber = calcScreen.textContent;
     operator = event.currentTarget.id;
     setMarker(event);
@@ -58,38 +57,42 @@ function calculation(event) {
     setMarker(event);
 };
 
-function clearScreen(event){
-    calcScreen.textContent='0';
-    previousNumber='';
-    operator=undefined;
+function clearScreen(event) {
+    calcScreen.textContent = '0';
+    previousNumber = '';
+    operator = undefined;
     screenSize(calcScreen.textContent);
     setMarker(event);
 }
 
-function backSpace(event){
+function backSpace(event) {
     if (calcScreen.textContent === 'Error') {
         clearScreen(event);
-        return};
+        return
+    };
     calcScreen.textContent = calcScreen.textContent.slice(0, -1);
     if (calcScreen.textContent === '') calcScreen.textContent = 0;
     screenSize(calcScreen.textContent);
     setMarker(event);
 }
 
-let previousNumber= '' , operator;
-console.log(operator);
+let previousNumber = '', operator;
 
 let button = document.querySelectorAll('div.block_item');
 for (let elem of button) {
     elem.addEventListener('click', addNumber);
 }
 document.querySelector('div.block_zero').addEventListener('click', addNumber);
+
 backspace.removeEventListener('click', addNumber);
 backspace.addEventListener('click', backSpace);
+
 button = document.querySelectorAll('div.block_operation');
 for (let elem of button) {
     elem.addEventListener('click', procedure);
 }
+
 RESULT.removeEventListener('click', procedure);
 RESULT.addEventListener('click', calculation);
+
 CLEAR.addEventListener('click', clearScreen);
