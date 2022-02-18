@@ -40,7 +40,7 @@ function procedure(event) {
 
 function calculation(event) {
     let lastEvent = document.querySelector('div.Event');
-    if (lastEvent.classList.contains('block_operation')) return;
+    if (lastEvent.classList.contains('block_operation')||previousNumber==='') return;
     if (calcScreen.textContent === '0' || calcScreen.textContent === 'Error') {
         calcScreen.textContent = 'Error';
         return;
