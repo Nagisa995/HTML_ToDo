@@ -40,11 +40,7 @@ function procedure(event) {
 
 function calculation(event) {
     let lastEvent = document.querySelector('div.Event');
-    if (lastEvent.classList.contains('block_operation')||previousNumber==='') return;
-    if (calcScreen.textContent === '0' || calcScreen.textContent === 'Error') {
-        calcScreen.textContent = 'Error';
-        return;
-    }
+    if (lastEvent.classList.contains('block_operation') || previousNumber === ''|| calcScreen.textContent === 'Error') return;
     const resultCalc =
     {
         sum: +previousNumber + (+calcScreen.textContent),
@@ -52,8 +48,12 @@ function calculation(event) {
         mult: previousNumber * calcScreen.textContent,
         div: previousNumber / calcScreen.textContent,
     };
+    if (!isFinite(resultCalc[operator])) {
+        calcScreen.textContent = 'Error';
+        return;
+    }
     calcScreen.textContent = resultCalc[operator];
-    previousNumber=0;
+    previousNumber = 0;
     screenSize(calcScreen.textContent);
     setMarker(event);
 };
