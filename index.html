@@ -3,15 +3,53 @@
 
 <head>
     <title>
-        Калькулятор
+        To Do Лист
     </title>
     <meta http-equiv="Content-type" content="text/html;sharset=UTF-8">
     <link rel="stylesheet" href="css/style.css">
-   
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
 </head>
 
 <body>
+    <div class="main_block" id="main_block">
+        <div style="margin-bottom: 12px;">HIGH</div>
+        <div class="coordinate">
+            <form id="addTaskHigh">
+                <input class="addTask" id="HIGH" placeholder="Добавить важных дел" type="text">
+                <button class="add" type="submit"></button>
+            </form>
+        </div>
+        <div id="showListHigh">
+            <div class="checkbox coordinate">
+                <button class="btnBig"></button>
+                <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Esse, quae!</p>
+                <button class="delete"></button>
+            </div>
+            <div class="checkbox coordinate">
+                <button class="btnBig"></button>
+                <p>Lorem, ipsum dolor.</p>
+                <button class="delete"></button>
+            </div>
+        </div>
+        <div style="margin: 12px 0 12px 0">LOW</div>
+        <div class="coordinate">
+            <form id="addTaskLow">
+                <input class="addTask" id="LOW" placeholder="Добавить" type="text" >
+                <button class="add" type="submit"></button>
+            </form>
 
+        </div>
+        <div id="showListLow">
+            <div class="checkbox coordinate">
+                <button class="btnBig"></button>
+                <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Esse, quae!</p>
+                <button class="delete"></button>
+            </div>
+        </div>
+    </div>
 </body>
+<script src="js/main.js"></script>
 
 </html>
