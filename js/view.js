@@ -1,28 +1,48 @@
-//функция удаления
+//определяем кнопку на которое произошло событие
+export function currentTarget(event) {
+    return event.currentTarget;
+}
+//ищем блок задачи
+function parent(target) {
+    return target.parentNode;
+}
+//функция для установки задания в активное состояние
+function setTaskActive(block, btn) {
+    block.classList.remove('checkboxDone');
+    btn.classList.remove('btnBigDone');
+}
+//функция для отметки выполненного задания
+function setTaskDone(block, btn) {
+    block.classList.add('checkboxDone');
+    btn.classList.add('btnBigDone');
+}
+//функция добавления задания на экран
+export function showList(list, text) {
+    return list.append(createTask(text));
+}
+//функция удаления задачи
 export function deleteTask(event) {
-    let task = event.currentTarget;
-    let block = task.parentNode;
+    let task = currentTarget(event);
+    let block = parent(task);
     block.remove();
     delete baseTask[task.previousElementSibling.textContent];
 }
-//функция смены статуса
+//функция смены статуса задачи
 export function changeStatus(event) {
-    let btn = event.currentTarget;
-    let block = btn.parentNode;
-    if (block.classList.contains('checkboxDone')) {
-        block.classList.remove('checkboxDone');
-        btn.classList.remove('btnBigDone');
+    let btn = currentTarget(event);
+    let block = parent(btn);
+    let taskDone = !block.classList.contains('checkboxDone')
+    if (taskDone) {
+        setTaskDone(block, btn);
     }
     else {
-        block.classList.add('checkboxDone');
-        btn.classList.add('btnBigDone');
+        setTaskActive(block, btn)
     }
 }
 //функция создания задания
 export function createTask(text) {
     let taskBlock = document.createElement('div');
-    taskBlock.classList.add('checkbox');
-    taskBlock.classList.add('coordinate');
+    taskBlock.setAttribute('class', 'checkbox coordinate');
     let btnChange = document.createElement('button');
     btnChange.classList.add('btnBig');
     btnChange.addEventListener('click', changeStatus);

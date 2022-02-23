@@ -1,6 +1,8 @@
 import {
+    currentTarget,
     baseTask,
     createTask,
+    showList,
 } from './view.js';
 
 for (let task in baseTask) {
@@ -12,22 +14,21 @@ for (let task in baseTask) {
     }
 }
 
-
 function addTask(event) {
     event.preventDefault();
-    let form = event.currentTarget;
+    let form = currentTarget(event);
     let input = form.firstElementChild;
-    let block = input.id;
-    let text = input.value;
-    if (text == '') return;
-    if (block === 'HIGH') {
-        showListHigh.append(createTask(text));
+    let priority = input.id;
+    let task = input.value;
+    if (task == '') return;
+    if (priority === 'HIGH') {
+        showList(showListHigh, task);
     }
     else {
-        showListLow.append(createTask(text));
+        showList(showListLow, task);
     }
     input.value = "";
-    baseTask[text] = block;
+    baseTask[task] = priority;
     return;
 }
 
