@@ -12,7 +12,7 @@ function setTaskActive(block, btn) {
     btn.classList.remove('btnBigDone');
 }
 //функция для отметки выполненного задания
-function setTaskDone(block, btn) {
+export function setTaskDone(block, btn) {
     block.classList.add('checkboxDone');
     btn.classList.add('btnBigDone');
 }
@@ -58,7 +58,34 @@ export function createTask(text) {
 }
 //Изначальная база задач
 export const baseTask = {
-    'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Esse, quae!': 'HIGH',
-    'Lorem, ipsum dolor.': 'HIGH',
-    'Lorem ipsum, dolor sit amet consectetur': 'LOW'
+    'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Esse, quae!': {
+        priority: 'HIGH',
+        status: 'Active',
+    },
+    'Lorem, ipsum dolor.': {
+        priority: 'HIGH',
+        status: 'Done',
+    },
+    'Lorem ipsum, dolor sit amet consectetur': {
+        priority: 'LOW',
+        status: 'Active',
+    },
+    'Lorem ipsum, dolor |_(-_-)_/': {
+        priority: 'LOW',
+        status: 'Done',
+    },
+}
+//Запись новой задачи в базу
+export function createBaseTask(baseTask,task, value) {
+    baseTask[task]={};
+    baseTask[task].priority = value;
+    baseTask[task].status = 'Active';
+};
+//Смена статуса выполненной базовой задачи
+export function baseTaskDone(list,elem){
+    if(elem.status==='Done'){
+        let block_Task=list.lastElementChild;
+        let marker= block_Task.firstElementChild;
+        setTaskDone(block_Task, marker);
+        }
 }
