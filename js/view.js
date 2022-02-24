@@ -28,7 +28,6 @@ export function setTaskDone(block, btn) {
 }
 //функция добавления задания на экран
 export function showList(list, text, elem) {
-    console.log(elem);
     list.append(createTask(text));
     baseTaskDone(list, elem);
 }
