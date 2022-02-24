@@ -6,19 +6,31 @@ export function currentTarget(event) {
 function parent(target) {
     return target.parentNode;
 }
+//Первый элемент блока
+export function firstChild(elem) {
+    return elem.firstElementChild;
+}
+//Смена статуса задачи в базовом хранилище
+export function setStatus(btn, taskStatus) {
+    baseTask[btn.nextElementSibling.textContent].status = taskStatus;
+}
 //функция для установки задания в активное состояние
 function setTaskActive(block, btn) {
     block.classList.remove('checkboxDone');
     btn.classList.remove('btnBigDone');
+    setStatus(btn, 'Active');
 }
 //функция для отметки выполненного задания
 export function setTaskDone(block, btn) {
     block.classList.add('checkboxDone');
     btn.classList.add('btnBigDone');
+    setStatus(btn, 'Done');
 }
 //функция добавления задания на экран
-export function showList(list, text) {
-    return list.append(createTask(text));
+export function showList(list, text, elem) {
+    console.log(elem);
+    list.append(createTask(text));
+    baseTaskDone(list, elem);
 }
 //функция удаления задачи
 export function deleteTask(event) {
@@ -36,7 +48,7 @@ export function changeStatus(event) {
         setTaskDone(block, btn);
     }
     else {
-        setTaskActive(block, btn)
+        setTaskActive(block, btn);
     }
 }
 //функция создания задания
@@ -76,16 +88,20 @@ export const baseTask = {
     },
 }
 //Запись новой задачи в базу
-export function createBaseTask(baseTask,task, value) {
-    baseTask[task]={};
-    baseTask[task].priority = value;
-    baseTask[task].status = 'Active';
+export function createBaseTask(base, task, value) {
+    base[task] = {};
+    base[task].priority = value;
+    base[task].status = 'Active';
 };
 //Смена статуса выполненной базовой задачи
-export function baseTaskDone(list,elem){
-    if(elem.status==='Done'){
-        let block_Task=list.lastElementChild;
-        let marker= block_Task.firstElementChild;
+export function baseTaskDone(list, elem) {
+    if (elem.status === 'Done') {
+        let block_Task = list.lastElementChild;
+        let marker = firstChild(block_Task);
         setTaskDone(block_Task, marker);
-        }
+    }
+}
+//очистка строки ввода
+export function clearInput(input) {
+    return (input.value = "");
 }

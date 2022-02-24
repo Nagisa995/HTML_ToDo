@@ -1,37 +1,39 @@
 import {
     currentTarget,
-    baseTaskDone,
+    clearInput,
     baseTask,
     showList,
     createBaseTask,
+    firstChild,
 } from './view.js';
 
 for (let task in baseTask) {
     if (baseTask[task].priority === 'HIGH') {
-        showList(showListHigh, task);
-        baseTaskDone(showListHigh,baseTask[task]);
+        showList(showListHigh, task, baseTask[task]);
     }
     else {
-        showList(showListLow, task);
-        baseTaskDone(showListLow,baseTask[task]);
+        showList(showListLow, task, baseTask[task]);
     }
 }
 
 function addTask(event) {
     event.preventDefault();
-    let form = currentTarget(event);
-    let input = form.firstElementChild;
+    let input = firstChild(currentTarget(event));
     let priorityValue = input.id;
     let task = input.value;
-    if (task == '') return;
+    let taskIsEmpty = ((task.split(' ').join('')) === '');
+    if (taskIsEmpty) {
+        clearInput(input);
+        return;
+    };
+    createBaseTask(baseTask, task, priorityValue);
     if (priorityValue === 'HIGH') {
-        showList(showListHigh, task);
+        showList(showListHigh, task, baseTask[task]);
     }
     else {
-        showList(showListLow, task);
+        showList(showListLow, task, baseTask[task]);
     }
-    input.value = "";
-    createBaseTask(baseTask, task, priorityValue);
+    clearInput(input);
     return;
 }
 
