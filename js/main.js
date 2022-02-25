@@ -5,10 +5,14 @@ import {
     showList,
     createBaseTask,
     firstChild,
+    addGroupEvent,
 } from './view.js';
 
+addGroupEvent('form', 'submit', addTask);
+
 for (let task in baseTask) {
-    if (baseTask[task].priority === 'HIGH') {
+    let priorityValue = baseTask[task].priority;
+    if (priorityValue === 'HIGH') {
         showList(showListHigh, task, baseTask[task]);
     }
     else {
@@ -21,23 +25,22 @@ function addTask(event) {
     let input = firstChild(currentTarget(event));
     let priorityValue = input.id;
     let task = input.value;
-    let taskIsEmpty = ((task.split(' ').join('')) === '');
-    if (taskIsEmpty) {
+    try {
+        let taskIsEmpty = ((task.split(' ').join('')) === '');
+        if (taskIsEmpty) {
+            throw new Error('Empty task');
+        }
+        createBaseTask(baseTask, task, priorityValue);
+        if (priorityValue === 'HIGH') {
+            showList(showListHigh, task, baseTask[task]);
+        }
+        else {
+            showList(showListLow, task, baseTask[task]);
+        }
+    } catch (err) {
+        alert(`${err.message}`);
+    } finally {
         clearInput(input);
-        return;
-    };
-    createBaseTask(baseTask, task, priorityValue);
-    if (priorityValue === 'HIGH') {
-        showList(showListHigh, task, baseTask[task]);
     }
-    else {
-        showList(showListLow, task, baseTask[task]);
-    }
-    clearInput(input);
     return;
-}
-
-let btn = document.querySelectorAll('form');
-for (let elem of btn) {
-    elem.addEventListener('submit', addTask);
 }

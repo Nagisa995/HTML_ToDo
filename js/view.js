@@ -56,12 +56,12 @@ export function createTask(text) {
     taskBlock.setAttribute('class', 'checkbox coordinate');
     let btnChange = document.createElement('button');
     btnChange.classList.add('btnBig');
-    btnChange.addEventListener('click', changeStatus);
+    addEvent(btnChange,'click', changeStatus);
     let task = document.createElement('p');
     task.textContent = text;
     let btnDel = document.createElement('button');
     btnDel.classList.add('delete');
-    btnDel.addEventListener('click', deleteTask);
+    addEvent(btnDel,'click', deleteTask);
     taskBlock.append(btnChange);
     taskBlock.append(task);
     taskBlock.append(btnDel);
@@ -103,4 +103,15 @@ export function baseTaskDone(list, elem) {
 //очистка строки ввода
 export function clearInput(input) {
     return (input.value = "");
+}
+//вешаем событие на одиночный элемент
+export function addEvent(elem,event,eventFunction){
+    elem.addEventListener(event,eventFunction);
+}
+//вешаем событие на группу элементов
+export function addGroupEvent(selector,event,eventFunction){
+    let btn = document.querySelectorAll(selector);
+    for (let elem of btn) {
+        addEvent(elem,event,eventFunction);
+    }
 }
