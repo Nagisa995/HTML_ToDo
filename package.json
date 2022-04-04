@@ -1,0 +1,24 @@
+{
+  "name": "html-todo",
+  "version": "1.0.0",
+  "description": "ToDo List",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Nagisa995/HTML_ToDo.git"
+  },
+  "keywords": [
+    "ToDo",
+    "JS",
+    "HTML"
+  ],
+  "author": "Nagisa",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Nagisa995/HTML_ToDo/issues"
+  },
+  "homepage": "https://github.com/Nagisa995/HTML_ToDo#readme"
+}
